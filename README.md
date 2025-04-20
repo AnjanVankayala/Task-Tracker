@@ -19,7 +19,7 @@ The **Task Tracker App** is a simple and interactive application built using Rea
 ## Installation
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone [<repository-url>](https://github.com/AnjanVankayala/Task-Tracker.git)
    ```
 2. Install Required Packages 
     ```bash

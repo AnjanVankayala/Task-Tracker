@@ -1,10 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Task from './components/Task';
 import './App.css';
 
 function App() {
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState(() => {
+    const savedTasks = localStorage.getItem('tasks');
+    return savedTasks ? JSON.parse(savedTasks) : [];
+  });
   const [taskName, setTaskName] = useState('');
+
+  useEffect(() => {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }, [tasks]);
+  // const [tasks, setTasks] = useState([]);
+  // const [taskName, setTaskName] = useState('');
+  
 
   const addTask = () => {
     if (taskName.trim()) {
@@ -30,22 +40,28 @@ function App() {
       <h1>Task Tracker</h1>
       <div className="task-input">
         <input 
+          className="input-field"
           type="text" 
           value={taskName} 
           onChange={(e) => setTaskName(e.target.value)} 
           placeholder="Enter a task" 
         />
-        <button onClick={addTask}>Add Task</button>
+        <span className="add-btn" onClick={addTask}> + Add Task</span>
+        
       </div>
       <div className="task-list">
-        {tasks.map((task, index) => (
-          <Task 
-            key={index} 
-            task={task} 
-            onDelete={() => deleteTask(index)} 
-            onToggle={() => toggleTaskCompletion(index)} 
-          />
-        ))}
+      {tasks.length === 0 ? (
+          <p className="empty-message">No tasks available. Add a task to get started!</p>
+        ) : (
+          tasks.map((task, index) => (
+            <Task 
+              key={index} 
+              task={task} 
+              onDelete={() => deleteTask(index)} 
+              onToggle={() => toggleTaskCompletion(index)} 
+            />
+          ))
+        )}
       </div>
     </div>
   );

@@ -20,3 +20,13 @@
   padding: 5px 10px;
   cursor: pointer;
 }
+
+.task .fa-check {
+  color: green;
+  margin: 2px;
+}
+
+.del{
+  margin: 2px;
+}
+
